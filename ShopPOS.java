@@ -1,5 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class ShopPOS {
     
@@ -54,13 +55,12 @@ public class ShopPOS {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Shop POS");
-        frame.setBounds(200, 100, 800, 500);
+        frame.setSize(800, 500);
         frame.setLayout(new BorderLayout());
+        frame.setLocationRelativeTo(null);
 
         JPanel TopPanel = new JPanel();
-        TopPanel.setBorder(
-            BorderFactory.createEmptyBorder(10, 20, 20, 20)
-        );
+        TopPanel.setBorder( new EmptyBorder(10, 20, 20, 20));
         TopPanel.setLayout(new GridLayout(5, 4, 10, 10));
 
         TopPanel.add(new JLabel("PRODUCTS"));
