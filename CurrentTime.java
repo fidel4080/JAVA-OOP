@@ -21,6 +21,9 @@ public class CurrentTime {
         JLabel textLabel = new JLabel("Click the button below to show current Time");
 
         JTextField timeField = new JTextField();
+        timeField.setEditable(false);
+        timeField.setFont(new Font("Arial", Font.BOLD, 24));
+        timeField.setHorizontalAlignment(JTextField.CENTER);
 
         JButton getTimeBtn = new JButton("Show Time");
         getTimeBtn.setFont(new Font("Arial", Font.PLAIN, 18));
