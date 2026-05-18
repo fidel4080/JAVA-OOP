@@ -1,10 +1,11 @@
+import java.awt.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
-import java.awt.*;
 
 public class Time {
 
+    //class method with logic and UI
     void displayTime(){
 
         JFrame frame = new JFrame("Clock");
