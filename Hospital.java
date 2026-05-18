@@ -1,4 +1,3 @@
-//MAISHA HOSPITAL
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +13,7 @@ class Conditions {
         pressure = p;
     }
 
+    //main logic
     void medication(){
         if(temperature > 38 && pressure > 140){
             JOptionPane.showMessageDialog(null, name+" Should be admitted immediately");
@@ -54,6 +54,7 @@ public class Hospital{
 
         JButton checkButton = new JButton("Check Condition");
 
+        //add all components
         mainPanel.add(nameLabel);
         mainPanel.add(nameField);
         mainPanel.add(tempLabel);
@@ -67,6 +68,7 @@ public class Hospital{
 
         checkButton.addActionListener(e -> {
 
+            //check if name field is empty
             if(nameField.getText().isEmpty()){
                     JOptionPane.showMessageDialog(frame,
                     "Patient Name should be entered!"
@@ -82,6 +84,8 @@ public class Hospital{
                 //new object
                 Conditions patient = new Conditions(name, temperature, pressure);
                 patient.medication();
+
+                //catch error if a number is not entered
             } catch (NumberFormatException ex){
                 
                 JOptionPane.showMessageDialog(frame,
