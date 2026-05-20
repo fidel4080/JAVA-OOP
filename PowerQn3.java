@@ -46,8 +46,8 @@ public class PowerQn3 {
     public static void main(String[] args) {
 
         //inputs
-        String N1 = JOptionPane.showInputDialog("Enter the first number:\n");
-        String N2 = JOptionPane.showInputDialog("Enter the second number:\n");
+        String N1 = JOptionPane.showInputDialog("Enter the base number:\n");
+        String N2 = JOptionPane.showInputDialog("Enter the exponent:\n");
         int number1 = Integer.parseInt(N1);
         int number2 = Integer.parseInt(N2);
 
