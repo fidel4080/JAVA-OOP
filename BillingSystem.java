@@ -3,85 +3,81 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.*;
 
+class PhoneBilling {
 
-class BillingSys{
-
-    //variable declaration
-    double NormalCharge;
+    // Variable declaration
+    double normalCharge;
     double VAT = 0.16;
-    double NetworkCharge = 5.00;
-    double OtherNetworkCharge = 0.00;
-    double VATCharge = 0.00;
+    double networkCharge = 5.00;
+    double otherNetworkCharge = 0.00;
+    double vatCharge = 0.00;
 
-    //constructor
+    // Constructor
     double callDuration;
-    String NetworkChoice;
+    String networkChoice;
 
-    BillingSys(double callDuration, String NetworkChoice){
-        this.callDuration = callDuration;
-        this.NetworkChoice = NetworkChoice;
+    PhoneBilling(double c, String n) {
+        callDuration = c;
+        networkChoice = n;
     }
 
-
-    //method
-    double ChargeCustomer(){
-        //Timeframes
+    // Method
+    double ChargeCustomer() {
+        // Timeframes
         LocalTime now = LocalTime.now();
         LocalTime start = LocalTime.of(6, 0);
-        LocalTime end  = LocalTime.of(18,0);
+        LocalTime end = LocalTime.of(18, 0);
 
-        if("No".equals(NetworkChoice)){
-            OtherNetworkCharge += NetworkCharge;
+        if ("No".equals(networkChoice)) {
+            otherNetworkCharge += networkCharge;
         }
 
-        if(now.isAfter(start) && now.isBefore(end)){
-            NormalCharge = callDuration * 4.00;
+        if (now.isAfter(start) && now.isBefore(end)) {
+            normalCharge = callDuration * 4.00;
+        } 
 
-        } else{
-            NormalCharge = callDuration * 3.00;
-
-        }
-        if(callDuration >= 2){
-                VATCharge = VAT * NormalCharge;
-
+        else {
+            normalCharge = callDuration * 3.00;
         }
 
-        return NormalCharge + VATCharge + OtherNetworkCharge;
+        if (callDuration >= 2) {
+            vatCharge = VAT * normalCharge;
+        }
 
+        return normalCharge + vatCharge + otherNetworkCharge;
     }
 }
 
-public class BillingSystem{
+public class BillingSystem {
     static LocalTime startTime;
     static LocalTime stopTime;
-    public static void main(String[] arg){
+
+    public static void main(String[] arg) {
+
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
         JFrame frame = new JFrame("Call Billing System");
         JButton startBtn = new JButton("Start Call");
         JButton stopBtn = new JButton("Stop Call");
-        JLabel label = new JLabel("Other network?:");
+        JLabel label = new JLabel("Making this call to other network?:");
         JComboBox<String> networkDropdown = new JComboBox<>();
         networkDropdown.addItem("Yes");
         networkDropdown.addItem("No");
-        
 
-        startBtn.setBounds(50, 60, 120, 40);
-        stopBtn.setBounds(200, 60, 120, 40);
-        label.setBounds(10, 10, 120, 40);
-        networkDropdown.setBounds(100, 15, 80, 30);
+        label.setBounds(20, 20, 260, 30);
+        networkDropdown.setBounds(270, 20, 80, 30);
+        startBtn.setBounds(60, 80, 120, 40);
+        stopBtn.setBounds(210, 80, 120, 40);
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-        //Start button
+        // Start button
         startBtn.addActionListener(e -> {
             startTime = LocalTime.now();
             startBtn.setEnabled(false);
             JOptionPane.showMessageDialog(frame, "Call started at: " + startTime.format(timeFormatter));
         });
 
-        //Stop Button
+        // Stop button
         stopBtn.addActionListener(e -> {
-
             stopTime = LocalTime.now();
 
             if (startTime == null) {
@@ -89,22 +85,21 @@ public class BillingSystem{
                 return;
             }
 
-            String NetworkChoice = (String) networkDropdown.getSelectedItem();
+            String networkChoice = (String) networkDropdown.getSelectedItem();
 
             long seconds = Duration.between(startTime, stopTime).getSeconds();
-            double callDuration = seconds / 60.0;
+            double callDuration = seconds / 60.00;
 
-            BillingSys customer = new BillingSys(callDuration, NetworkChoice);
-            double totalBill = customer.ChargeCustomer();
+            PhoneBilling phone = new PhoneBilling(callDuration, networkChoice);
+            double totalBill = phone.ChargeCustomer();
 
             JOptionPane.showMessageDialog(frame,
-                "Call ended at: " + stopTime.format(timeFormatter) +
-                "\nCall duration: " + String.format("%.2f", callDuration) + " minutes" +
-                "\nYour bill amount is Ksh. " + String.format("%.2f", totalBill));
+                    "Call ended at: " + stopTime.format(timeFormatter) +
+                    "\nCall duration: " + String.format("%.2f", callDuration) + " minutes" +
+                    "\nYour bill amount is Ksh. " + String.format("%.2f", totalBill));
 
             System.exit(0);
-});
-
+        });
 
         frame.add(startBtn);
         frame.add(stopBtn);
@@ -114,8 +109,6 @@ public class BillingSystem{
         frame.setLayout(null);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(500, 300, 400, 200);
-        
+        frame.setBounds(500, 300, 420, 180);
     }
-
 }
