@@ -34,7 +34,7 @@ class PhoneBilling {
 
         if (now.isAfter(start) && now.isBefore(end)) {
             normalCharge = callDuration * 4.00;
-        } 
+        }
 
         else {
             normalCharge = callDuration * 3.00;
@@ -59,7 +59,7 @@ public class BillingSystem {
         JFrame frame = new JFrame("Call Billing System");
         JButton startBtn = new JButton("Start Call");
         JButton stopBtn = new JButton("Stop Call");
-        JLabel label = new JLabel("Making this call to other network?:");
+        JLabel label = new JLabel("Making this call to same network?:");
         JComboBox<String> networkDropdown = new JComboBox<>();
         networkDropdown.addItem("Yes");
         networkDropdown.addItem("No");
@@ -95,8 +95,8 @@ public class BillingSystem {
 
             JOptionPane.showMessageDialog(frame,
                     "Call ended at: " + stopTime.format(timeFormatter) +
-                    "\nCall duration: " + String.format("%.2f", callDuration) + " minutes" +
-                    "\nYour bill amount is Ksh. " + String.format("%.2f", totalBill));
+                            "\nCall duration: " + String.format("%.2f", callDuration) + " minutes" +
+                            "\nYour bill amount is Ksh. " + String.format("%.2f", totalBill));
 
             System.exit(0);
         });
